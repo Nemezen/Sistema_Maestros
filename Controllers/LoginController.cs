@@ -14,24 +14,27 @@ public class LoginController : Controller
 
     // Endpoint: /api/login
     [HttpPost("api/login")]
-    public async Task<IActionResult> Login(Profesor profesor)
+    public async Task<IActionResult> Login([FromBody] Login model)
     {
+        
         // Buscar usuario en la base de datos
         var usuario = await _context.Profesores
-            .FirstOrDefaultAsync(u => u.Nombre == profesor.Nombre && u.Contrasenia == profesor.Contrasenia);
+            .FirstOrDefaultAsync(u => u.Nombre_Usuario == model.User && u.Contrasenia == model.Contrasenia);
 
         if (usuario != null)
         {
             // Si las credenciales son válidas, retornar información del usuario
             return Ok(new
             {
-                usuarioId = usuario.Id,
-                usuarioNombre = usuario.Nombre,
+                profesorId = usuario.Id,
+                profesorNombre = usuario.Nombre,
             });
         }
 
         // Si las credenciales no son válidas, retornar No Autorizado
-        return Unauthorized("Credenciales incorrectas");
+        return Unauthorized("Datos incorrectos");
     }
 }
+
+
 

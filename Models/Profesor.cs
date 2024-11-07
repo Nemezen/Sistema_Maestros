@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
+        public string Nombre_Usuario { get; set; } = null!;
+
         public string Contrasenia { get; set; } = null!;
     }
 }
