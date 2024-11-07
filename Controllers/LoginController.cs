@@ -14,12 +14,11 @@ public class LoginController : Controller
 
     // Endpoint: /api/login
     [HttpPost("api/login")]
-    public async Task<IActionResult> Login([FromBody] Login model)
+    public async Task<IActionResult> Login([FromBody] Profesor login)
     {
-        
-        // Buscar usuario en la base de datos
+        // Validar el nombre de usuario y contraseña usando el objeto Profesor
         var usuario = await _context.Profesores
-            .FirstOrDefaultAsync(u => u.Nombre_Usuario == model.User && u.Contrasenia == model.Contrasenia);
+            .FirstOrDefaultAsync(u => u.Nombre_Usuario == login.Nombre_Usuario && u.Contrasenia == login.Contrasenia);
 
         if (usuario != null)
         {
